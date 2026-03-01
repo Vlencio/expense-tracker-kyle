@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EXPEN$IVE 💸
+
+A personal expense tracker built with Next.js 16, Tailwind CSS, and shadcn/ui. Track your spending, visualize expenses by category with a donut chart, and manage your budget — all stored locally in your browser.
+
+This is a challenge by unicorn machine, and also, my first project with NextJS.
+
+---
+
+## Features
+
+- **Mock Authentication** — Login with predefined credentials, protected routes via Next.js proxy middleware
+- **Add Expenses** — Name, value, category (predefined + custom), description, and date
+- **Expense History** — Collapsible cards with slide-in animations for each expense
+- **Donut Chart** — Visual breakdown of spending by category using Recharts
+- **Delete Expenses** — Remove expenses with a smooth exit animation
+- **Dark / Light Mode** — Theme toggle powered by next-themes
+- **Persistent Storage** — Expenses saved to localStorage, no backend required
+
+---
+
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Next.js 16 | React framework, routing, middleware |
+| Tailwind CSS 4 | Utility-first styling |
+| shadcn/ui | UI components (Input, Button, Select) |
+| Recharts | Donut chart for expense visualization |
+| Framer Motion | Slide-in/out animations for expense cards |
+| next-themes | Dark/light mode toggle |
+| cookies-next | Cookie management for auth state |
+| TypeScript | Type safety |
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/Vlencio/expense-tracker.git
+
+# Navigate to the project folder
+cd expense-tracker
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Mock Credentials
 
-## Learn More
+Since this project uses mock authentication, use the following credentials to log in:
 
-To learn more about Next.js, take a look at the following resources:
+```
+Email:    kyle@unicornmachine.com
+Password: notKyle
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+expense-tracker/
+├── app/
+│   ├── dashboard/
+│   │   └── page.tsx        # Main dashboard page
+│   ├── globals.css
+│   ├── layout.tsx           # Root layout with Navbar and ThemeProvider
+│   └── page.tsx             # Login page
+├── components/
+│   ├── ui/                  # shadcn/ui components
+│   ├── ExpenseCard.tsx      # Collapsible expense card with animations
+│   ├── ExpenseChart.tsx     # Recharts donut chart
+│   ├── NavBar.tsx           # Top navigation with theme toggle
+│   └── ThemeProvider.tsx    # next-themes wrapper
+├── public/
+│   └──                      # Static assets
+├── types/
+│   └── index.ts             # Shared TypeScript types (Expense)
+├── proxy.ts                 # Route protection middleware
+└── package.json
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## How It Works
+
+### Authentication
+Login is validated against a mock user list. On success, a cookie `isLoggedIn` is set. The `proxy.ts` middleware intercepts any request to `/dashboard` and redirects unauthenticated users back to the login page.
+
+### Expense Storage
+Expenses are stored in `localStorage` as a JSON array. On page load, the Dashboard reads from localStorage and hydrates the React state. Every time the expenses state changes, it is automatically saved back to localStorage.
+
+### Chart Data
+The donut chart groups expenses by category using `Array.reduce()`, summing the values for each category. The result is passed to Recharts as `[{ category, value }]`.
+
+---
+
+## Future Improvements
+
+- [ ] Real authentication with NextAuth.js
+- [ ] Backend database (Supabase or PlanetScale)
+- [ ] Edit existing expenses
+- [ ] Filter and sort expenses by date or category
+- [ ] Export expenses to CSV
+- [ ] Responsive design for mobile
+
+---
+
+## License
+
+This project is made to the technical test in unicorn machine.

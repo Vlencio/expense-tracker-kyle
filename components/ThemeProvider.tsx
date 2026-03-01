@@ -4,8 +4,10 @@ import { ThemeProvider as NextThemesProvider } from "next-themes"
 
 export default function ThemeProvider({ children }: { children: React.ReactNode}) {
     return (
-        <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
+        <NextThemesProvider attribute="class" defaultTheme="system" enableSystem >
+            <div className="flex flex-col flex-1">
+                {children}
+            </div>
         </NextThemesProvider>
     )
 }
