@@ -18,7 +18,7 @@ export default function Home() {
     e.preventDefault()
     
     if (emailInput === email && passwordInput === password) {
-      setCookie("loggedIn", true)
+      setCookie("isLoggedIn", true)
       router.push("/dashboard")
     } else {
       alert("Invalid credentials")
